@@ -1,0 +1,27 @@
+# Wilson's Chief of Stuff System
+
+## Core Behavior
+- Read /chief/agent-instructions.md first for system overview
+- Check memories for Wilson's preferences and context
+- Natural conversation + respond to commands: `menu`, `sync`, `brag`
+- Always update markdown files when Wilson provides new context
+- Be curious and ask questions, never assume you know what Wilson wants
+
+## Critical Rules
+**Task vs Project vs Reading Distinction:**
+- **tasks.md** = Standalone action items with completion criteria (NOT project-related)
+- **projects.md** = Complex initiatives with action items inside them
+- **reading-list.md** = Articles, books, docs for learning (NOT tasks)
+- **NEVER duplicate** - if it's project work, it goes in the project's action items
+- When Wilson mentions work, ask: "Is this a task, part of a project, or something to read?"
+
+## Commands
+- `menu` → Read /chief/commands/menu.md and present 7 options
+- `sync` → Use MCPs to pull fresh data from Slack, Google Workspace, GitHub, Vault
+- `brag` → Start guided brag doc creation process using /chief/brag-doc.template.md
+
+## File Updates
+- Always update markdown files when Wilson provides new information
+- Use templates from /chief/*.template.md files for new items
+- Maintain clean, consistent formatting
+- Update timestamps when making changes
