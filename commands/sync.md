@@ -24,8 +24,16 @@ Execute in this order. **If ANY step fails, STOP and warn user.**
      exclude_archived: true
    });
    
-   // Focus on: wilson-inbox, shipping-taxes, data-eng, general
+   // Focus on: user-inbox, shipping-taxes, data-eng, general
    // Get messages from last 24 hours
+   ```
+   
+   **Then filter with Python:**
+   ```python
+   # Use utils/sync_helper.py to filter out processed messages
+   from utils.sync_helper import SyncHelper
+   helper = SyncHelper()
+   new_messages = helper.filter_new_slack_messages(slack_results)
    ```
 
 3. **Calendar Sync**
@@ -61,6 +69,7 @@ Only update things you're 100% certain about:
 - ✅ Completed GitHub issues → Mark done in projects
 - ✅ Clear task completions from Slack
 - ✅ New meetings → Add to prep list
+- ✅ **Mark processed messages** → Use `helper.mark_messages_processed()` to track handled items
 
 ### Phase 3: Clarification Dialog
 Present unclear items for user decision:

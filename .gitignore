@@ -1,0 +1,20 @@
+# Working files - these are created from templates
+user-context.md
+projects.md
+tasks.md
+reading-list.md
+
+# Personal data directories
+context/*.md
+!context/README.md
+brag-docs/*.md
+!brag-docs/.gitkeep
+
+# System files
+.DS_Store
+*.log
+.env
+
+# IDE files
+.vscode/
+.cursor/
