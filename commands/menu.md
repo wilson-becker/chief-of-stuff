@@ -33,16 +33,14 @@ Present exactly these 7 options with no additional descriptions or explanations:
 - Separate completed tasks at bottom
 
 ### Option 3: Slack Digest
-- Use Slack MCP to check key channels:
-  - #wilson-inbox (always check)
-  - #shipping-taxes, #data-eng (work channels)
-  - Any channels mentioned in projects.md
+- Read user-context.md to get the user's Slack username and important channels
+- Use Slack MCP to check ALL channels listed in user-context.md for unread messages from the last day
 - Focus on:
-  - Posts with @wilson-becker mentions
+  - Posts mentioning the user (use username from user-context.md)
   - Messages with actionable items
   - Important announcements or decisions
   - Links to docs/resources
-- Present as: "Channel → Key Message → Potential Action"
+- Present as: "Channel → Key Message TLDR → Link → Potential Action"
 
 ### Option 4: Upcoming Meetings
 - Use Calendar MCP for next 7 days
@@ -54,11 +52,12 @@ Present exactly these 7 options with no additional descriptions or explanations:
 - Ask: "Which meetings need prep?" rather than assuming
 
 ### Option 5: GitHub Digest
-- Use GitHub CLI commands:
+- Read user-context.md to get the user's GitHub username
+- Use GitHub CLI commands with the username from user-context.md:
   ```bash
-  gh issue list --assignee wilson-becker --state open
+  gh issue list --assignee {github_username} --state open
   gh api notifications  
-  gh pr list --author wilson-becker --state open
+  gh pr list --author {github_username} --state open
   ```
 - Present as:
   - Issues assigned to you → Priority + TLDR
