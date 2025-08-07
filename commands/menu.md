@@ -34,7 +34,8 @@ Present exactly these 7 options with no additional descriptions or explanations:
 
 ### Option 3: Slack Digest
 - Read user-context.md to get the user's Slack username and important channels
-- Use Slack MCP to check ALL channels listed in user-context.md for unread messages from the last day
+- Use Slack MCP to check PUBLIC/TEAM channels listed in user-context.md for unread messages from the last day
+- EXCLUDE private inbox channels (e.g., #wilson-inbox) - these are personal notes, not team communications
 - Focus on:
   - Posts mentioning the user (use username from user-context.md)
   - Messages with actionable items
