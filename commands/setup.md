@@ -59,7 +59,7 @@ You need a private Slack channel for personal notes and task context.
 **Please create a private channel named: #[firstname]-inbox**
 - In Slack: Click + next to "Channels" 
 - Choose "Create a channel"
-- Name: [firstname]-inbox (e.g., #wilson-inbox)
+- Name: [firstname]-inbox (e.g., #john-inbox)
 - Make it Private
 - Add only yourself
 

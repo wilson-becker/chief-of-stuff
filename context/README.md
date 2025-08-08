@@ -14,7 +14,7 @@ Create individual context files when:
 Use kebab-case based on the project name:
 - "Shipping Invoice Reconciliation" → `shipping-invoice-reconciliation.md`
 - "Label Penetration Analysis" → `label-penetration-analysis.md`
-- "Wilson's Onboarding" → `wilsons-onboarding.md`
+- "User Onboarding" → `user-onboarding.md`
 
 ## Context File Structure
 

@@ -51,7 +51,7 @@ How will you know this succeeded?
 ## Examples of Projects:
 - "Shipping Invoice Reconciliation" (stakeholders, multiple phases, kickoff calls)
 - "Label Penetration Analysis (Bullymake)" (supporting team member, GitHub tracking)
-- "Wilson's Onboarding" (30/60/90 day goals, learning areas)
+- "User Onboarding" (30/60/90 day goals, learning areas)
 
 ## Critical Rule:
 All project-related work goes in the project's Action Items section - NEVER in tasks.md

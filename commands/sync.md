@@ -44,7 +44,7 @@ Execute based on arguments provided. **If ANY requested step fails, STOP and war
    
    **For inbox-only sync (`-inbox`):**
    ```javascript
-   // Read user-context.md to find user's private inbox channel (e.g., #wilson-inbox)
+   // Read user-context.md to find user's private inbox channel (e.g., #[user]-inbox)
    // Get ONLY that channel's messages from last 24 hours
    ```
    
@@ -75,13 +75,13 @@ Execute based on arguments provided. **If ANY requested step fails, STOP and war
 6. **GitHub Sync**
    ```bash
    # Get assigned issues
-   gh issue list --assignee wilson-becker --state open
+   gh issue list --assignee [github-handle-from-user-context] --state open
    
    # Get notifications  
    gh api notifications
    
    # Get recent PR activity
-   gh pr list --author wilson-becker --state open
+   gh pr list --author [github-handle-from-user-context] --state open
    ```
 
 ### Phase 2: Analysis and Preparation

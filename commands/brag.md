@@ -1,7 +1,7 @@
 # Brag Command Instructions
 
 ## When User Says `brag`
-Start the guided brag doc creation process to help Wilson frame his accomplishments for career advancement.
+Start the guided brag doc creation process to help the user frame their accomplishments for career advancement.
 
 ## Brag Doc Process
 
@@ -11,7 +11,7 @@ Start the guided brag doc creation process to help Wilson frame his accomplishme
    - Read tasks.md → Look for completed tasks
    - Check recent context from sync data
 
-2. **Present findings** to Wilson:
+2. **Present findings** to the user:
    ```
    🎉 **Found these accomplishments from the past week:**
    
@@ -30,7 +30,7 @@ Start the guided brag doc creation process to help Wilson frame his accomplishme
    ```
 
 ### Phase 2: Quantifying Impact Interview
-For each accomplishment Wilson selects, ask these questions:
+For each accomplishment the user selects, ask these questions:
 
 #### **Scope & Scale Questions:**
 - "How many people/teams were impacted by this?"
@@ -53,7 +53,7 @@ For each accomplishment Wilson selects, ask these questions:
 - "Did you mentor or teach anyone through this work?"
 
 ### Phase 3: Frame for Career Level
-Help Wilson frame accomplishments at **Staff Engineer level**:
+Help the user frame accomplishments at their **target career level** (check user-context.md):
 
 #### **Staff-Level Framing Techniques:**
 - **Org-wide impact:** "This improved processes for 3 teams across Shipping & Taxes"
@@ -82,13 +82,13 @@ After creating the brag doc:
 - **Be curious and persistent** about numbers and scope
 - **Ask follow-up questions** to get deeper details
 - **Help connect** technical work to business outcomes
-- **Frame everything** in terms of Wilson's target career progression
-- **Don't assume** - if Wilson says something is "small," dig deeper
+- **Frame everything** in terms of the user's target career progression (from user-context.md)
+- **Don't assume** - if the user says something is "small," dig deeper
 
 ## Success Criteria
 A good brag doc session should result in:
 - **Specific, quantified accomplishments** with numbers where possible
-- **Clear connection** between Wilson's work and business impact
+- **Clear connection** between the user's work and business impact
 - **Staff-level framing** that shows org-wide thinking
 - **Complete brag doc** saved and ready for performance reviews
 - **Updated project files** with accomplishments moved to appropriate sections
