@@ -64,36 +64,42 @@ Execute in this order. **If ANY step fails, STOP and warn user.**
    gh pr list --author wilson-becker --state open
    ```
 
-### Phase 2: NO AUTOMATIC UPDATES
-🚨 **CRITICAL: DO NOT update any project files without user confirmation**
+### Phase 2: Analysis and Preparation
+🎯 **Analyze data and prepare smart suggestions - but make NO file changes yet**
 
 The ONLY silent updates allowed:
 - ✅ **Mark processed messages** → Use `helper.mark_messages_processed(processed_items, "reason")` to prevent future duplicates
 - ✅ **Update sync timestamps** → Only update "Last synced" timestamps in files
 
-❌ **NEVER do these without asking:**
-- Adding calendar events to projects
-- Marking GitHub issues as done
-- Adding Slack messages as tasks/context
-- Creating new projects or tasks
-- Updating project status or context
+🧠 **Analyze and prepare suggestions for:**
+- Which Slack messages relate to which existing projects
+- Which calendar events need prep from existing projects  
+- Which GitHub items can be marked as completed
+- What new tasks or projects might be needed
+- **But DON'T make any changes yet - just prepare intelligent suggestions**
 
-### Phase 3: Present ALL Items for User Decision
-Present ALL sync findings for user input - make NO assumptions:
+### Phase 3: Smart Suggestions with User Confirmation
+Analyze findings and make intelligent suggestions, but ALWAYS get confirmation:
 
 ```
-🔍 **Sync found X items needing your input:**
+🔍 **Sync found X items. Here's what I think should happen:**
 
 1. **[Source]:** "[Content preview]"
-   → What should I do with this?
-   → Options: A) Add to existing project  B) Create new task  C) Add to reading list  D) Ignore
-
+   → **My suggestion:** Add this to "Shipping Invoice Reconciliation" project as context
+   → **Reasoning:** Mentions Jasmin (key stakeholder) and reconciliation models
+   
 2. **[Source]:** "[Content preview]"  
-   → Where does this belong?
-   → Options: A) Update project context  B) Create new project  C) Add as task  D) Just note it
+   → **My suggestion:** Update your urgent BQ Quota task with this new spreadsheet link
+   → **Reasoning:** Matches your existing Friday deadline task
 
-Ask for each item individually - do NOT batch process or make assumptions about relationships.
+3. **[Source]:** "[Content preview]"
+   → **My suggestion:** Mark your "Clone DW repo" task as completed
+   → **Reasoning:** You mentioned completing this
+
+**What do you think? Tell me which suggestions to implement, modify, or skip.**
 ```
+
+Make smart connections but NEVER act without explicit "yes, do it" confirmation.
 
 ## Error Handling - FAIL LOUDLY
 
