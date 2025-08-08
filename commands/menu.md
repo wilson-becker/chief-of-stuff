@@ -2,13 +2,15 @@
 
 ## Menu Command Formats
 - **Default menu:** `menu` (show all 7 options, no sync)
-- **Targeted menu:** `menu -tasks`, `menu -projects`, `menu -slack`, `menu -calendar`, `menu -github`, `menu -google`, `menu -reading`
+- **Targeted menu:** `menu -tasks`, `menu -projects`, `menu -pt`, `menu -slack`, `menu -calendar`, `menu -github`, `menu -google`, `menu -reading`
 - **Sync + menu:** `menu -sync` (run full sync first, then show menu)
 - **Sync + targeted:** `menu -sync -tasks` (sync first, then show just tasks)
+- **Combined views:** `menu -pt` (projects + tasks), `menu -sync -pt` (sync + projects + tasks)
 
 ## Supported Arguments
-- `-tasks` or `-t` → Show only tasks (option 2)
 - `-projects` or `-p` → Show only projects (option 1)
+- `-tasks` or `-t` → Show only tasks (option 2)
+- `-pt` → Show both projects and tasks in combined output
 - `-slack` or `-s` → Show only Slack digest (option 3)
 - `-calendar` or `-c` → Show only upcoming meetings (option 4)
 - `-github` or `-g` → Show only GitHub digest (option 5)
@@ -117,6 +119,7 @@ Present exactly these 7 options with no additional descriptions or explanations:
 **For `menu -[option]` (targeted):**
 - Execute the specific option immediately (no sync)
 - Present the results directly
+- For `-pt`: Execute both Option 1 (projects) and Option 2 (tasks) in combined format
 
 **For `menu -sync`:**
 - Run full sync first (follow sync.md instructions)
@@ -127,6 +130,7 @@ Present exactly these 7 options with no additional descriptions or explanations:
 - Run full sync first
 - Then execute the specific option immediately
 - Present the results directly
+- For `-sync -pt`: Sync first, then show both projects and tasks in combined format
 
 ## After Presenting Menu
 Wait for user to choose an option (1-7) or ask follow-up questions. Do not assume what they want to work on.
