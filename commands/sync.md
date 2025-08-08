@@ -28,12 +28,13 @@ Execute in this order. **If ANY step fails, STOP and warn user.**
    // Get messages from last 24 hours
    ```
    
-   **Then filter with Python:**
+   **🎯 CRITICAL: Filter with sync utilities to eliminate duplicates:**
    ```python
-   # Use utils/sync_helper.py to filter out processed messages
+   # ALWAYS use utils/sync_helper.py - this prevents showing processed messages
    from utils.sync_helper import SyncHelper
    helper = SyncHelper()
    new_messages = helper.filter_new_slack_messages(slack_results)
+   # Only show new_messages to user, not the raw slack_results
    ```
 
 3. **Calendar Sync**
@@ -69,7 +70,7 @@ Only update things you're 100% certain about:
 - ✅ Completed GitHub issues → Mark done in projects
 - ✅ Clear task completions from Slack
 - ✅ New meetings → Add to prep list
-- ✅ **Mark processed messages** → Use `helper.mark_messages_processed()` to track handled items
+- ✅ **🎯 CRITICAL: Mark processed messages** → Use `helper.mark_messages_processed(processed_items, "reason")` to prevent future duplicates
 
 ### Phase 3: Clarification Dialog
 Present unclear items for user decision:
