@@ -35,6 +35,9 @@ Present exactly these 7 options with no additional descriptions or explanations:
 
 ### Option 1: List all Projects
 - Read projects.md in full
+- **Format with critical items first:**
+  1. **🚨 Critical Items (Next 2 Days)** - Any project action items due within 48 hours
+  2. **📊 All Projects** - Full project list with status, priority, stakeholders, recent context, next actions
 - Present each project with:
   - Status indicator (🟡 In Progress, 🟢 Complete, etc.)
   - Priority level
@@ -43,9 +46,11 @@ Present exactly these 7 options with no additional descriptions or explanations:
   - Next action items with due dates
 - Clean, scannable format
 
-### Option 2: List all Tasks  
+### Option 2: List all Tasks
 - Read tasks.md in full
-- Group by priority: 🔴 Urgent → 🟡 High → 🟢 Medium → ⚪ Low
+- **Format with critical items first:**
+  1. **🚨 Critical Items (Next 2 Days)** - Any tasks due within 48 hours
+  2. **📋 All Tasks** - Group by priority: 🔴 Urgent → 🟡 High → 🟢 Medium → ⚪ Low
 - Show due dates prominently
 - Include estimates where available
 - Separate completed tasks at bottom
@@ -119,7 +124,10 @@ Present exactly these 7 options with no additional descriptions or explanations:
 **For `menu -[option]` (targeted):**
 - Execute the specific option immediately (no sync)
 - Present the results directly
-- For `-pt`: Execute both Option 1 (projects) and Option 2 (tasks) in combined format
+- For `-pt`: Execute combined projects+tasks format:
+  1. **🚨 Critical Items (Next 2 Days)** - Any project actions or tasks due within 48 hours
+  2. **📊 Projects** - All active projects with context
+  3. **📋 Tasks** - All tasks grouped by priority
 
 **For `menu -sync`:**
 - Run full sync first (follow sync.md instructions)
@@ -130,7 +138,10 @@ Present exactly these 7 options with no additional descriptions or explanations:
 - Run full sync first
 - Then execute the specific option immediately
 - Present the results directly
-- For `-sync -pt`: Sync first, then show both projects and tasks in combined format
+- For `-sync -pt`: Sync first, then show combined format:
+  1. **🚨 Critical Items (Next 2 Days)** 
+  2. **📊 Projects** 
+  3. **📋 Tasks**
 
 ## After Presenting Menu
 Wait for user to choose an option (1-7) or ask follow-up questions. Do not assume what they want to work on.
