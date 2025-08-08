@@ -1,6 +1,22 @@
 # Menu Command Instructions
 
-## When User Says `menu`
+## Menu Command Formats
+- **Default menu:** `menu` (show all 7 options, no sync)
+- **Targeted menu:** `menu -tasks`, `menu -projects`, `menu -slack`, `menu -calendar`, `menu -github`, `menu -google`, `menu -reading`
+- **Sync + menu:** `menu -sync` (run full sync first, then show menu)
+- **Sync + targeted:** `menu -sync -tasks` (sync first, then show just tasks)
+
+## Supported Arguments
+- `-tasks` or `-t` → Show only tasks (option 2)
+- `-projects` or `-p` → Show only projects (option 1)
+- `-slack` or `-s` → Show only Slack digest (option 3)
+- `-calendar` or `-c` → Show only upcoming meetings (option 4)
+- `-github` or `-g` → Show only GitHub digest (option 5)
+- `-google` or `-e` → Show only Google digest (option 6)
+- `-reading` or `-r` → Show only reading list (option 7)
+- `-sync` → Run full sync first, then show menu/options
+
+## When User Says `menu` (no args)
 Present exactly these 7 options with no additional descriptions or explanations:
 
 ```
@@ -92,6 +108,25 @@ Present exactly these 7 options with no additional descriptions or explanations:
 - **Contextual** - connect items to existing projects when relevant
 - **Concise** - summaries not full details
 - **Interactive** - end with "What would you like to focus on?"
+
+## Execution Flow
+**For `menu` (no args):**
+- Present all 7 options immediately (no sync)
+- Wait for user to choose an option (1-7)
+
+**For `menu -[option]` (targeted):**
+- Execute the specific option immediately (no sync)
+- Present the results directly
+
+**For `menu -sync`:**
+- Run full sync first (follow sync.md instructions)
+- Then present all 7 options
+- Wait for user to choose
+
+**For `menu -sync -[option]`:**
+- Run full sync first
+- Then execute the specific option immediately
+- Present the results directly
 
 ## After Presenting Menu
 Wait for user to choose an option (1-7) or ask follow-up questions. Do not assume what they want to work on.
