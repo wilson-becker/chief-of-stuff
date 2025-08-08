@@ -64,26 +64,35 @@ Execute in this order. **If ANY step fails, STOP and warn user.**
    gh pr list --author wilson-becker --state open
    ```
 
-### Phase 2: Confident Updates (Silent)
-Only update things you're 100% certain about:
-- ✅ Calendar events → Add to relevant project prep needs
-- ✅ Completed GitHub issues → Mark done in projects
-- ✅ Clear task completions from Slack
-- ✅ New meetings → Add to prep list
-- ✅ **🎯 CRITICAL: Mark processed messages** → Use `helper.mark_messages_processed(processed_items, "reason")` to prevent future duplicates
+### Phase 2: NO AUTOMATIC UPDATES
+🚨 **CRITICAL: DO NOT update any project files without user confirmation**
 
-### Phase 3: Clarification Dialog
-Present unclear items for user decision:
+The ONLY silent updates allowed:
+- ✅ **Mark processed messages** → Use `helper.mark_messages_processed(processed_items, "reason")` to prevent future duplicates
+- ✅ **Update sync timestamps** → Only update "Last synced" timestamps in files
+
+❌ **NEVER do these without asking:**
+- Adding calendar events to projects
+- Marking GitHub issues as done
+- Adding Slack messages as tasks/context
+- Creating new projects or tasks
+- Updating project status or context
+
+### Phase 3: Present ALL Items for User Decision
+Present ALL sync findings for user input - make NO assumptions:
 
 ```
 🔍 **Sync found X items needing your input:**
 
 1. **[Source]:** "[Content preview]"
-   → Looks related to "[Project Name]" project?
-   → Add as: A) Project context  B) New task  C) New blocker  D) Somewhere else?
+   → What should I do with this?
+   → Options: A) Add to existing project  B) Create new task  C) Add to reading list  D) Ignore
 
-2. **[Source]:** "[Content preview]"
-   → Should I: A) Create new project  B) Add to existing project  C) Create task  D) Just note it?
+2. **[Source]:** "[Content preview]"  
+   → Where does this belong?
+   → Options: A) Update project context  B) Create new project  C) Add as task  D) Just note it
+
+Ask for each item individually - do NOT batch process or make assumptions about relationships.
 ```
 
 ## Error Handling - FAIL LOUDLY
@@ -106,14 +115,21 @@ C) Skip this sync for now
 ## Success Message
 ```
 ✅ **Sync Complete**
-- Updated [X] projects with new context
-- Added [X] calendar events to prep list  
+- Slack: [X] new messages filtered (excluded [Y] already processed)
+- Calendar: [X] upcoming events found
+- Email: [X] unread messages
+- GitHub: [X] notifications, [Y] open issues/PRs
 - Found [X] items needing your input (see below)
 - Last synced: [timestamp]
 ```
 
 ## Files to Update
-- Always update timestamps in projects.md and tasks.md
-- Add new context to "Recent Context" sections
-- Create new tasks/projects only after user confirmation
-- Maintain clean formatting and consistent structure
+🚨 **ONLY after explicit user confirmation:**
+- Update projects.md with new context
+- Add new tasks to tasks.md  
+- Create new projects or reading list items
+- Update any project status or action items
+
+✅ **Always allowed:**
+- Update sync timestamps
+- Mark messages as processed in sync_helper
