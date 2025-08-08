@@ -1,14 +1,27 @@
 # Sync Command Instructions
 
-## When to Run Sync
-- **Manual:** When user says `sync`
-- **Auto:** At the start of any new conversation thread
+## Sync Command Formats
+- **Full sync:** `sync` (all data sources)
+- **Targeted sync:** `sync -slack`, `sync -inbox`, `sync -calendar`, `sync -github`, `sync -email`, `sync -drive`
+- **Multiple sources:** `sync -slack -calendar` (combine specific sources)
+- **Auto:** At the start of any new conversation thread (full sync)
 - **Never:** During ongoing conversations unless explicitly requested
 
-## Sync Process - ALL OR NOTHING
+## Supported Arguments
+- `-slack` or `-s` → Only sync Slack messages (all channels)
+- `-inbox` or `-i` → Only sync user's private inbox channel (found in user-context.md)
+- `-calendar` or `-c` → Only sync calendar events  
+- `-github` or `-g` → Only sync GitHub issues/PRs/notifications
+- `-email` or `-e` → Only sync unread emails
+- `-drive` or `-d` → Only sync recent Drive activity
 
-### Phase 1: Data Gathering (Must ALL succeed)
-Execute in this order. **If ANY step fails, STOP and warn user.**
+## Sync Process 
+
+### Phase 1: Data Gathering 
+Execute based on arguments provided. **If ANY requested step fails, STOP and warn user.**
+
+**For full sync (`sync` with no args), execute ALL steps. If ANY fails, STOP.**  
+**For targeted sync, only execute requested sources.**
 
 1. **Time Context**
    ```bash
@@ -17,15 +30,22 @@ Execute in this order. **If ANY step fails, STOP and warn user.**
    ```
 
 2. **Slack Sync** 
+   **For full sync (`-slack`) or no args:**
    ```javascript
-   // Get wilson-inbox + key channels (last 24hrs)
+   // Get all key channels (last 24hrs)
    const conversations = await slack.api.users.conversations({
      types: "public_channel,private_channel,im,mpim",
      exclude_archived: true
    });
    
-   // Focus on: user-inbox, shipping-taxes, data-eng, general
+   // Focus on channels from user-context.md, but EXCLUDE private inbox
    // Get messages from last 24 hours
+   ```
+   
+   **For inbox-only sync (`-inbox`):**
+   ```javascript
+   // Read user-context.md to find user's private inbox channel (e.g., #wilson-inbox)
+   // Get ONLY that channel's messages from last 24 hours
    ```
    
    **🎯 CRITICAL: Filter with sync utilities to eliminate duplicates:**
@@ -119,12 +139,22 @@ C) Skip this sync for now
 **DO NOT** proceed with partial sync data.
 
 ## Success Message
+**For full sync:**
 ```
-✅ **Sync Complete**
+✅ **Full Sync Complete**
 - Slack: [X] new messages filtered (excluded [Y] already processed)
 - Calendar: [X] upcoming events found
-- Email: [X] unread messages
+- Email: [X] unread messages  
 - GitHub: [X] notifications, [Y] open issues/PRs
+- Drive: [X] files modified today
+- Found [X] items needing your input (see below)
+- Last synced: [timestamp]
+```
+
+**For targeted sync:**
+```
+✅ **Slack Sync Complete** (or Calendar/GitHub/etc)
+- [X] new messages filtered (excluded [Y] already processed)
 - Found [X] items needing your input (see below)
 - Last synced: [timestamp]
 ```
