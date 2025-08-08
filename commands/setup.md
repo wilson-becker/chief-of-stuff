@@ -150,11 +150,41 @@ Now I'll ask you some questions to customize your experience...
 
 **Create user-context.md with all collected info**
 
-### Step 7: Projects & Tasks Bootstrap
+### Step 7: File System Bootstrap
 ```
-📊 **Setting Up Your First Project**
+📁 **Creating Your Working Files**
 
-Let's create your first project to get you started...
+Now I'll create your personalized system files from the templates...
+```
+
+**Create working files from templates with real data:**
+1. **Create `user-context.md`** - Populate with Vault profile data and interview responses
+2. **Create `projects.md`** - Add any imported Vault projects or user-provided projects  
+3. **Create `tasks.md`** - Set up priority structure with any initial tasks
+4. **Create `reading-list.md`** - Initialize with priority categories
+5. **Create `brag-docs/` directory** - For future accomplishment tracking
+
+**Remove template files:**
+```bash
+rm *.template.md
+```
+
+```
+✅ **Your personalized files are ready:**
+- user-context.md (with your real profile and preferences)
+- projects.md (with your actual projects)
+- tasks.md (organized by your priorities)  
+- reading-list.md (ready for your learning materials)
+- brag-docs/ (ready for weekly accomplishments)
+
+All template files have been removed - your system is now live!
+```
+
+### Step 8: Projects & Tasks Bootstrap
+```
+📊 **Populating Your Projects**
+
+Let's add your current work to the system...
 ```
 
 **If Vault found active projects:**
@@ -163,26 +193,23 @@ I found these active projects in Vault:
 1. [Project Name] - [Status]
 2. [Project Name] - [Status]
 
-Should I import these as starting projects? (y/n)
+I've added these to your projects.md file. Should I gather more details about any of them? (y/n)
 ```
 
 **If no Vault projects or user declines:**
 ```
-Let's create a sample project:
+Let's add your current work:
 
 What's something you're currently working on?
 - Project name: ___
 - Brief description: ___
 - Key people involved: ___
 - Target completion: ___
+
+I'll add this to your projects.md file with proper formatting.
 ```
 
-**Create initial projects.md and tasks.md with:**
-- Sample project structure
-- 2-3 example tasks
-- Proper formatting examples
-
-### Step 8: Final Test & Cleanup
+### Step 9: Final Test & Cleanup
 ```
 🚀 **Final Setup Verification**
 
@@ -208,9 +235,10 @@ Your Chief of Stuff system is ready:
 
 This will:
 1. Delete commands/setup.md
-2. Commit all your personal configuration
-3. Push to your GitHub repository
-4. Your system will be ready for daily use!
+2. Remove any remaining template files  
+3. Commit all your personal configuration
+4. Push to your GitHub repository
+5. Your system will be ready for daily use!
 
 Proceed with cleanup and push? (y/n)
 ```
@@ -218,13 +246,16 @@ Proceed with cleanup and push? (y/n)
 **If yes:**
 ```bash
 git rm commands/setup.md
+rm -f *.template.md  # Remove any remaining templates
 git add .
 git commit -m "Complete Chief of Stuff setup for [name]
 
+- Created personalized working files from templates
 - Configured personal context and preferences  
 - Set up Slack inbox: #[name]-inbox
 - Imported Vault profile and projects
 - Verified all MCP connections
+- Removed template files - system is now live
 - Ready for daily productivity use"
 git push origin main
 ```
