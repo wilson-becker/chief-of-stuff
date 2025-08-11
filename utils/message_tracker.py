@@ -10,24 +10,17 @@ import json
 import os
 from datetime import datetime
 from typing import Dict, List, Set, Optional
-from dataclasses import dataclass, asdict
+# Removed unused dataclass imports - using simple dict structure now
 
-@dataclass
-class ProcessedMessage:
-    """Represents a processed Slack message"""
-    timestamp: str  # Slack ts (e.g., "1754586153.006829")
-    channel: str
-    date: str  # Human readable (e.g., "2025-08-07")
-    status: str  # processed/integrated/noted
-    action_taken: str
-    processed_at: str  # When we processed it
+# Simplified: Just store timestamp -> action_taken mapping
+# No need for complex dataclass since we only need deduplication + context
 
 class MessageTracker:
-    """Manages processed message tracking"""
+    """Manages processed message tracking with simplified structure"""
     
     def __init__(self, storage_path: str = "context/processed_messages.json"):
         self.storage_path = storage_path
-        self.messages: Dict[str, ProcessedMessage] = {}
+        self.messages: Dict[str, str] = {}  # timestamp -> action_taken
         self.load_messages()
     
     def load_messages(self) -> None:
@@ -36,42 +29,33 @@ class MessageTracker:
             try:
                 with open(self.storage_path, 'r') as f:
                     data = json.load(f)
-                    self.messages = {
-                        ts: ProcessedMessage(**msg_data) 
-                        for ts, msg_data in data.items()
-                    }
+                    # Handle both old and new formats
+                    if data and isinstance(list(data.values())[0], dict):
+                        # Old format: extract action_taken from complex objects
+                        self.messages = {
+                            ts: msg_data.get('action_taken', 'processed')
+                            for ts, msg_data in data.items()
+                        }
+                    else:
+                        # New format: direct timestamp -> action mapping
+                        self.messages = data
             except (json.JSONDecodeError, FileNotFoundError):
                 self.messages = {}
     
     def save_messages(self) -> None:
         """Save processed messages to JSON file"""
         os.makedirs(os.path.dirname(self.storage_path), exist_ok=True)
-        data = {ts: asdict(msg) for ts, msg in self.messages.items()}
         with open(self.storage_path, 'w') as f:
-            json.dump(data, f, indent=2, sort_keys=True)
+            json.dump(self.messages, f, indent=2, sort_keys=True)
     
     def is_processed(self, timestamp: str) -> bool:
         """Check if a message timestamp has been processed"""
         return timestamp in self.messages
     
-    def mark_processed(self, timestamp: str, channel: str, action_taken: str, 
-                      status: str = "processed") -> None:
+    def mark_processed(self, timestamp: str, channel: str = "user-inbox", 
+                      action_taken: str = "processed during sync") -> None:
         """Mark a message as processed"""
-        # Convert timestamp to human readable date
-        try:
-            dt = datetime.fromtimestamp(float(timestamp))
-            date = dt.strftime("%Y-%m-%d")
-        except (ValueError, TypeError):
-            date = "unknown"
-        
-        self.messages[timestamp] = ProcessedMessage(
-            timestamp=timestamp,
-            channel=channel,
-            date=date,
-            status=status,
-            action_taken=action_taken,
-            processed_at=datetime.now().isoformat()
-        )
+        self.messages[timestamp] = action_taken
         self.save_messages()
     
     def filter_new_messages(self, messages: List[Dict]) -> List[Dict]:
@@ -85,12 +69,9 @@ class MessageTracker:
         """Get total count of processed messages"""
         return len(self.messages)
     
-    def get_processed_by_channel(self, channel: str) -> List[ProcessedMessage]:
-        """Get all processed messages for a specific channel"""
-        return [
-            msg for msg in self.messages.values() 
-            if msg.channel == channel
-        ]
+    def get_processed_by_channel(self, channel: str) -> List[str]:
+        """Get all processed message timestamps (channel filtering removed since we only track one channel)"""
+        return list(self.messages.keys())
     
     def cleanup_old_messages(self, days_to_keep: int = 30) -> int:
         """Remove processed messages older than specified days"""

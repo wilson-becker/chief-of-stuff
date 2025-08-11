@@ -1,94 +1,66 @@
-# Brag Command Instructions
+# Brag Command - Accomplishment Interview
 
-## When User Says `brag`
-Start the guided brag doc creation process to help the user frame their accomplishments for career advancement.
+## Execution Steps
 
-## Brag Doc Process
+### Step 1: Gather Recent Work
+1. Read `projects.md` → Look for completed action items
+2. Read `tasks.md` → Look for completed tasks  
+3. Check recent sync data if available
 
-### Phase 1: Gather Accomplishments
-1. **Review completed work** from the past week:
-   - Read projects.md → Look for completed action items and accomplishments
-   - Read tasks.md → Look for completed tasks
-   - Check recent context from sync data
+### Step 2: Present Findings Conversationally
+"I looked through your recent work and found some solid accomplishments to brag about:
 
-2. **Present findings** to the user:
-   ```
-   🎉 **Found these accomplishments from the past week:**
-   
-   **Projects:**
-   - [Project name]: [Completed action item or milestone]
-   - [Project name]: [Another accomplishment]
-   
-   **Tasks:**
-   - [Completed task with context]
-   - [Another completed task]
-   
-   **Other Activity:**
-   - [From Slack/Calendar/GitHub if relevant]
-   
-   Which of these feel most significant for your brag doc?
-   ```
+**From your projects:**
+• Shipping Invoice Reconciliation - You got that data model figured out and aligned Jasmin on the approach
+• [Other project] - [Natural description of what was completed]
 
-### Phase 2: Quantifying Impact Interview
-For each accomplishment the user selects, ask these questions:
+**Tasks you knocked out:**
+• [Completed task with why it mattered]
 
-#### **Scope & Scale Questions:**
-- "How many people/teams were impacted by this?"
-- "What was the timeline? How complex was this work?"
-- "What would have happened if you didn't do this?"
+**Other wins I noticed:**
+• [From recent Slack activity or meetings]
 
-#### **Technical Skills Questions:**
-- "What specific technical skills did this demonstrate?"
-- "What technologies/frameworks/approaches did you use?"
-- "What was challenging about this technically?"
+Which of these feels most significant? Or is there something else you're proud of that I missed?"
 
-#### **Business Impact Questions:**
-- "How does this connect to business outcomes?"
-- "Can we put numbers on this? (users, revenue, efficiency, time saved)"
-- "What feedback did you get from stakeholders?"
+### Step 3: Interview Process
+For each accomplishment Wilson selects, ask:
 
-#### **Leadership/Collaboration Questions:**
-- "Did you influence anyone without direct authority?"
-- "How did you work across teams on this?"
-- "Did you mentor or teach anyone through this work?"
+**Impact Questions:**
+- "How many people/teams were affected?"
+- "What would have happened without this work?"
+- "Can we put numbers on this? (users, time saved, revenue)"
 
-### Phase 3: Frame for Career Level
-Help the user frame accomplishments at their **target career level** (check user-context.md):
+**Technical Questions:**  
+- "What specific skills did this demonstrate?"
+- "What was technically challenging?"
+- "What technologies did you use?"
 
-#### **Staff-Level Framing Techniques:**
-- **Org-wide impact:** "This improved processes for 3 teams across Shipping & Taxes"
-- **Technical leadership:** "Led architectural decisions that reduced complexity"
-- **Problem identification:** "Identified systemic issue affecting multiple products"
-- **Solution ownership:** "Drove end-to-end solution from problem identification to deployment"
+**Leadership Questions:**
+- "Did you influence anyone without authority?"
+- "How did you work across teams?"
+- "Did you mentor anyone?"
 
-#### **Quantification Prompts:**
-- "Let's get specific numbers - how many records/users/requests/teams?"
-- "What's the before/after comparison?"
-- "How much time/money/effort did this save?"
+### Step 4: Frame for Staff Level
+Help Wilson frame each accomplishment with:
+- **Org-wide impact**: "Improved processes for X teams"  
+- **Technical leadership**: "Led architectural decisions"
+- **Problem ownership**: "Drove end-to-end solution"
+- **Quantified results**: Specific numbers and metrics
 
-### Phase 4: Create Brag Doc
-1. **Use template** from `/chief/brag-doc.template.md`
-2. **Fill in sections** based on interview responses
-3. **Save to** `/chief/brag-docs/YYYY-MM-DD.md`
-4. **Update projects.md** - move accomplishments to "Accomplishments" sections
+### Step 5: Create Brag Doc
+1. Use template from `/chief/brag-doc.template.md` (if exists)
+2. Save to `/chief/brag-docs/YYYY-MM-DD.md`
+3. Update `projects.md` to move accomplishments to "Accomplishments" sections
 
-### Phase 5: Follow-up Questions
-After creating the brag doc:
-- "What accomplishments are you most proud of this week?"
-- "What would you like to focus on next week to continue building staff-level impact?"
-- "Any feedback or recognition you received that we should capture?"
+### Step 6: Wrap Up Conversationally
+"Nice! We got a solid brag doc together. Looking at everything you accomplished, you're definitely operating at that staff level - the cross-team impact and technical leadership really comes through.
 
-## Interview Style
-- **Be curious and persistent** about numbers and scope
-- **Ask follow-up questions** to get deeper details
-- **Help connect** technical work to business outcomes
-- **Frame everything** in terms of the user's target career progression (from user-context.md)
-- **Don't assume** - if the user says something is "small," dig deeper
+What would you like to focus on next week to keep building on this momentum? Any particular areas where you want to expand your influence or tackle bigger technical challenges?"
+
+---
 
 ## Success Criteria
-A good brag doc session should result in:
-- **Specific, quantified accomplishments** with numbers where possible
-- **Clear connection** between the user's work and business impact
-- **Staff-level framing** that shows org-wide thinking
-- **Complete brag doc** saved and ready for performance reviews
-- **Updated project files** with accomplishments moved to appropriate sections
+- Specific, quantified accomplishments with numbers
+- Staff-level framing showing org-wide thinking  
+- Complete brag doc saved and ready for reviews
+- Project files updated with accomplishments moved

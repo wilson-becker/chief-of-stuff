@@ -1,26 +1,18 @@
-# Menu Command Instructions
+# Menu Command - Deterministic Display
 
-## Menu Command Formats
-- **Default menu:** `menu` (show all 7 options, no sync)
-- **Targeted menu:** `menu -tasks`, `menu -projects`, `menu -pt`, `menu -slack`, `menu -calendar`, `menu -github`, `menu -google`, `menu -reading`
-- **Sync + menu:** `menu -sync` (run full sync first, then show menu)
-- **Sync + targeted:** `menu -sync -tasks` (sync first, then show just tasks)
-- **Combined views:** `menu -pt` (projects + tasks), `menu -sync -pt` (sync + projects + tasks)
+## Command Formats
+- `menu` → Show 7 options
+- `menu -pt` → Projects + Tasks combined
+- `menu -projects` → Projects only
+- `menu -tasks` → Tasks only
+- `menu -slack` → Slack digest only
+- `menu -calendar` → Calendar only
 
-## Supported Arguments
-- `-projects` or `-p` → Show only projects (option 1)
-- `-tasks` or `-t` → Show only tasks (option 2)
-- `-pt` → Show both projects and tasks in combined output
-- `-slack` or `-s` → Show only Slack digest (option 3)
-- `-calendar` or `-c` → Show only upcoming meetings (option 4)
-- `-github` or `-g` → Show only GitHub digest (option 5)
-- `-google` or `-e` → Show only Google digest (option 6)
-- `-reading` or `-r` → Show only reading list (option 7)
-- `-sync` → Run full sync first, then show menu/options
+---
 
-## When User Says `menu` (no args)
-Present exactly these 7 options with no additional descriptions or explanations:
+## menu (Show Options)
 
+Present exactly these 7 options:
 ```
 **1.** 📊 **List all Projects**
 **2.** 📋 **List all Tasks** 
@@ -31,117 +23,118 @@ Present exactly these 7 options with no additional descriptions or explanations:
 **7.** 📚 **Reading list**
 ```
 
-## How Each Option Works
+Wait for user to choose 1-7.
 
-### Option 1: List all Projects
-- Read projects.md in full
-- **Format with critical items first:**
-  1. **🚨 Critical Items (Next 2 Days)** - Any project action items due within 48 hours
-  2. **📊 All Projects** - Full project list with status, priority, stakeholders, recent context, next actions
-- Present each project with:
-  - Status indicator (🟡 In Progress, 🟢 Complete, etc.)
-  - Priority level
-  - Key people involved
-  - Recent context (last 2-3 items)
-  - Next action items with due dates
-- Clean, scannable format
+---
 
-### Option 2: List all Tasks
-- Read tasks.md in full
-- **Format with critical items first:**
-  1. **🚨 Critical Items (Next 2 Days)** - Any tasks due within 48 hours
-  2. **📋 All Tasks** - Group by priority: 🔴 Urgent → 🟡 High → 🟢 Medium → ⚪ Low
-- Show due dates prominently
-- Include estimates where available
-- Separate completed tasks at bottom
+## menu -pt (Projects + Tasks)
 
-### Option 3: Slack Digest
-- Read user-context.md to get the user's Slack username and important channels
-- Use Slack MCP to check PUBLIC/TEAM channels listed in user-context.md for unread messages from the last day
-- EXCLUDE private inbox channels (e.g., #[user]-inbox from user-context.md) - these are personal notes, not team communications
-- Focus on:
-  - Posts mentioning the user (use username from user-context.md)
-  - Messages with actionable items
-  - Important announcements or decisions
-  - Links to docs/resources
-- Present as: "Channel → Key Message TLDR → Link → Potential Action"
+### Step 1: Read Files
+- Read `projects.md` 
+- Read `tasks.md`
 
-### Option 4: Upcoming Meetings
-- Use Calendar MCP for next 7 days
-- For each meeting show:
-  - Date/time
-  - Attendees
-  - Meeting purpose (if available)
-  - **Prep needed?** Check against projects.md for related context
-- Ask: "Which meetings need prep?" rather than assuming
+### Step 2: Present Conversationally
+"Here's what's on your plate right now:
 
-### Option 5: GitHub Digest
-- Read user-context.md to get the user's GitHub username
-- Use GitHub CLI commands with the username from user-context.md:
-  ```bash
-  gh issue list --assignee {github_username} --state open
-  gh api notifications  
-  gh pr list --author {github_username} --state open
-  ```
-- Present as:
-  - Issues assigned to you → Priority + TLDR
-  - PR reviews needed → Who's waiting
-  - Recent activity → What happened
-- Suggest potential actions for each item
+**🚨 Heads up - these need attention in the next couple days:**
+• [Urgent project action with context]
+• [Urgent task with deadline]
 
-### Option 6: Google Digest
-- Use Google Workspace MCP:
-  - Unread emails (work-related only)
-  - Recent docs/sheets activity
-  - Comments on shared files
-- Focus on actionable items:
-  - Emails needing response
-  - Docs needing review
-  - Shared files with updates
-- Present with quick TLDR and suggested actions
+**📊 Your active projects:**
+• **Shipping Invoice Reconciliation** - In progress with Jasmin, next: finalize data model
+• **[Other project]** - [Status and what's next]
 
-### Option 7: Reading List
-- Read reading-list.md in full
-- Present as prioritized list:
-  - Articles/docs with context on why important
-  - Books with relevance to current role
-  - Internal docs for onboarding/projects
-- Group by: 🔴 Urgent reads → 🟡 High Priority → 🟢 When time allows
-- Show status and estimated time for each item
+**📋 Your task list:**
+🔴 **Urgent stuff:**
+• [Task with deadline and context]
 
-## Presentation Style
-- **Clean and scannable** - use emojis and formatting
-- **Actionable** - always suggest next steps
-- **Contextual** - connect items to existing projects when relevant
-- **Concise** - summaries not full details
-- **Interactive** - end with "What would you like to focus on?"
+🟡 **High priority:**
+• [Important task you should tackle soon]
 
-## Execution Flow
-**For `menu` (no args):**
-- Present all 7 options immediately (no sync)
-- Wait for user to choose an option (1-7)
+What do you want to dive into first?"
 
-**For `menu -[option]` (targeted):**
-- Execute the specific option immediately (no sync)
-- Present the results directly
-- For `-pt`: Execute combined projects+tasks format:
-  1. **🚨 Critical Items (Next 2 Days)** - Any project actions or tasks due within 48 hours
-  2. **📊 Projects** - All active projects with context
-  3. **📋 Tasks** - All tasks grouped by priority
+---
 
-**For `menu -sync`:**
-- Run full sync first (follow sync.md instructions)
-- Then present all 7 options
-- Wait for user to choose
+## menu -projects (Projects Only)
 
-**For `menu -sync -[option]`:**
-- Run full sync first
-- Then execute the specific option immediately
-- Present the results directly
-- For `-sync -pt`: Sync first, then show combined format:
-  1. **🚨 Critical Items (Next 2 Days)** 
-  2. **📊 Projects** 
-  3. **📋 Tasks**
+### Step 1: Read projects.md
 
-## After Presenting Menu
-Wait for user to choose an option (1-7) or ask follow-up questions. Do not assume what they want to work on.
+### Step 2: Present Conversationally
+"Let me catch you up on your projects:
+
+**🚨 First things first - these need attention soon:**
+• [Urgent project action with context and deadline]
+
+**📊 Here's everything you're working on:**
+• **Shipping Invoice Reconciliation** - Looking good, you've got that meeting with Jasmin tomorrow about the data model. Next step is probably finalizing those BigQuery tables.
+• **[Other project]** - [Natural description of status and what's happening next]
+
+Which project do you want to focus on? Or should we talk through any blockers you're hitting?"
+
+---
+
+## menu -tasks (Tasks Only)
+
+### Step 1: Read tasks.md
+
+### Step 2: Present Conversationally
+"Here's what's on your task list:
+
+**🚨 These are coming up fast:**
+• [Task with deadline] - Due [when], this is about [context]
+
+**🔴 Urgent stuff to tackle:**
+• [Task description with why it matters]
+• [Another urgent task with context]
+
+**🟡 Important but not burning:**
+• [High priority task with some context]
+
+**🟢 When you get a chance:**
+• [Medium priority tasks]
+
+What feels most important to knock out first? Or is there something blocking you on any of these?"
+
+---
+
+## menu -slack (Slack Digest)
+
+### Step 1: Use Slack MCP
+Execute the slack sync logic from sync.md to get recent messages.
+
+### Step 2: Present Conversationally
+"I scanned your key Slack channels from the last day - here's what caught my attention:
+
+**#shipping-invoice-reconciliation**: Jasmin posted about the Purolator dispute numbers - looks like the $400k gap is confirmed. Might be worth updating your project context with this.
+
+**#team-data-channel**: Vincent shared some new BigQuery patterns that could help with your reconciliation work.
+
+**#user-inbox**: You left yourself a note about following up with Gajanan on the finance table access.
+
+Anything here you want me to help you act on or add to your project files?"
+
+---
+
+## menu -calendar (Calendar Only)
+
+### Step 1: Use Calendar MCP
+Execute calendar sync from sync.md.
+
+### Step 2: Present Conversationally
+"Looking at your calendar for the week:
+
+**Today**: You've got that 2pm sync with the shipping team - Jasmin and Vincent will be there. Perfect timing to discuss the reconciliation progress.
+
+**Tomorrow**: 1:1 with Vincent at 10am. Good chance to update him on your data model work and maybe get his thoughts on the finance table access issue.
+
+**Friday**: Looks like you blocked time for deep work - smart move for tackling those BigQuery queries.
+
+Want me to help you prep for any of these? I could pull together talking points from your project updates."
+
+---
+
+## Execution Rules
+1. **Read the specified files first**
+2. **Be conversational and natural** - like a knowledgeable Slack buddy
+3. **Always end with a question** that invites engagement
+4. **If files are empty**, say something like "Looks like your task list is empty - nice work! Anything new you want to add?"

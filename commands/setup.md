@@ -280,3 +280,4 @@ Your Chief of Stuff system is now live and personalized! 🚀
 
 ## Recovery
 If setup is interrupted, user must restart from beginning. All progress is discarded to ensure clean state.
+

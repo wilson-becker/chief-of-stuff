@@ -1,0 +1,13 @@
+{
+  "oldest_active_timestamp": "REPLACE_WITH_OLDEST_RECENT_TIMESTAMP",
+  "last_archive_date": "REPLACE_WITH_CURRENT_DATE",
+  "archives": [
+    {
+      "file": "processed_messages_YYYY-MM.json",
+      "archived_date": "REPLACE_WITH_CURRENT_DATE",
+      "message_count": "REPLACE_WITH_COUNT",
+      "oldest_ts": "REPLACE_WITH_OLDEST_ARCHIVED_TS",
+      "newest_ts": "REPLACE_WITH_NEWEST_ARCHIVED_TS"
+    }
+  ]
+}

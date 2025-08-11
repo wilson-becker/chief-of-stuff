@@ -1,171 +1,163 @@
-# Sync Command Instructions
+# Sync Command - Deterministic Data Fetching
 
-## Sync Command Formats
-- **Full sync:** `sync` (all data sources)
-- **Targeted sync:** `sync -slack`, `sync -inbox`, `sync -calendar`, `sync -github`, `sync -email`, `sync -drive`
-- **Multiple sources:** `sync -slack -calendar` (combine specific sources)
-- **Auto:** At the start of any new conversation thread (full sync)
-- **Never:** During ongoing conversations unless explicitly requested
+🚨 **MANDATORY EXECUTION RULES** 🚨
+1. **NEVER SIMULATE OR FAKE RESULTS** - Always use real MCP tools
+2. **FOLLOW EXACT STEPS** - Do not improvise or skip any step  
+3. **USE EXACT CODE** - Copy/paste the JavaScript and Python exactly as written
+4. **IF ANY STEP FAILS** - STOP and report the error, do not continue
 
-## Supported Arguments
-- `-slack` or `-s` → Only sync Slack messages (all channels)
-- `-inbox` or `-i` → Only sync user's private inbox channel (found in user-context.md)
-- `-calendar` or `-c` → Only sync calendar events  
-- `-github` or `-g` → Only sync GitHub issues/PRs/notifications
-- `-email` or `-e` → Only sync unread emails
-- `-drive` or `-d` → Only sync recent Drive activity
+## Command Formats
+- `sync` → Full sync (all sources)
+- `sync -i` → Inbox only (Wilson's private channel)
+- `sync -slack` → All Slack channels
+- `sync -calendar` → Calendar events only
+- `sync -github` → GitHub notifications only
+- `sync -email` → Unread emails only
 
-## Sync Process 
+---
 
-### Phase 1: Data Gathering 
-Execute based on arguments provided. **If ANY requested step fails, STOP and warn user.**
+## sync -i (Inbox Only)
 
-**For full sync (`sync` with no args), execute ALL steps. If ANY fails, STOP.**  
-**For targeted sync, only execute requested sources.**
+### Step 1: Fetch Inbox Messages
+**MANDATORY:** Use `mcp_callm-for-slack_evaluate_repl_function` tool with this EXACT code (do not modify):
 
-1. **Time Context**
-   ```bash
-   # Use datetime_utils.py for proper timestamps (not `date` command)
-   python datetime_utils.py --current-time
-   ```
-
-2. **Slack Sync** 
-   **For full sync (`-slack`) or no args:**
-   ```javascript
-   // Get all key channels (last 24hrs)
-   const conversations = await slack.api.users.conversations({
-     types: "public_channel,private_channel,im,mpim",
-     exclude_archived: true
-   });
-   
-   // Focus on channels from user-context.md, but EXCLUDE private inbox
-   // Get messages from last 24 hours
-   ```
-   
-   **For inbox-only sync (`-inbox`):**
-   ```javascript
-   // Read user-context.md to find user's private inbox channel (e.g., #[user]-inbox)
-   // Get ONLY that channel's messages from last 24 hours
-   ```
-   
-   **🎯 CRITICAL: Filter with sync utilities to eliminate duplicates:**
-   ```python
-   # ALWAYS use utils/sync_helper.py - this prevents showing processed messages
-   from utils.sync_helper import SyncHelper
-   helper = SyncHelper()
-   new_messages = helper.filter_new_slack_messages(slack_results)
-   # Only show new_messages to user, not the raw slack_results
-   ```
-
-3. **Calendar Sync**
-   ```
-   calendar_events(time_min="today", time_max="next week", max_results=20)
-   ```
-
-4. **Email Sync**
-   ```
-   read_mail(query="is:unread", max_results=10, include_body=true)
-   ```
-
-5. **Drive Sync**
-   ```
-   search_drive(query="modified:today", exclude_images=true)
-   ```
-
-6. **GitHub Sync**
-   ```bash
-   # Get assigned issues
-   gh issue list --assignee [github-handle-from-user-context] --state open
-   
-   # Get notifications  
-   gh api notifications
-   
-   # Get recent PR activity
-   gh pr list --author [github-handle-from-user-context] --state open
-   ```
-
-### Phase 2: Analysis and Preparation
-🎯 **Analyze data and prepare smart suggestions - but make NO file changes yet**
-
-The ONLY silent updates allowed:
-- ✅ **Mark processed messages** → Use `helper.mark_messages_processed(processed_items, "reason")` to prevent future duplicates
-- ✅ **Update sync timestamps** → Only update "Last synced" timestamps in files
-
-🧠 **Analyze and prepare suggestions for:**
-- Which Slack messages relate to which existing projects
-- Which calendar events need prep from existing projects  
-- Which GitHub items can be marked as completed
-- What new tasks or projects might be needed
-- **But DON'T make any changes yet - just prepare intelligent suggestions**
-
-### Phase 3: Smart Suggestions with User Confirmation
-Analyze findings and make intelligent suggestions, but ALWAYS get confirmation:
-
-```
-🔍 **Sync found X items. Here's what I think should happen:**
-
-1. **[Source]:** "[Content preview]"
-   → **My suggestion:** Add this to "Shipping Invoice Reconciliation" project as context
-   → **Reasoning:** Mentions Jasmin (key stakeholder) and reconciliation models
-   
-2. **[Source]:** "[Content preview]"  
-   → **My suggestion:** Update your urgent BQ Quota task with this new spreadsheet link
-   → **Reasoning:** Matches your existing Friday deadline task
-
-3. **[Source]:** "[Content preview]"
-   → **My suggestion:** Mark your "Clone DW repo" task as completed
-   → **Reasoning:** You mentioned completing this
-
-**What do you think? Tell me which suggestions to implement, modify, or skip.**
+```javascript
+async function(slack) {
+  const channelId = '{USER_INBOX_CHANNEL_ID}'; // Wilson's inbox from user-context.md
+  
+  // Get last 4 days of messages
+  const fourDaysAgo = new Date(Date.now() - (4 * 24 * 60 * 60 * 1000));
+  const oldestTimestamp = (fourDaysAgo.getTime() / 1000).toString();
+  
+  const response = await slack.api.conversations.history({
+    channel: channelId,
+    oldest: oldestTimestamp,
+    limit: 50
+  });
+  
+  return {
+    success: response.ok,
+    messageCount: response.messages ? response.messages.length : 0,
+    messages: response.messages || [],
+    timeRange: `${fourDaysAgo.toISOString()} to ${new Date().toISOString()}`
+  };
+}
 ```
 
-Make smart connections but NEVER act without explicit "yes, do it" confirmation.
+### Step 2: Find New Messages
+**MANDATORY:** Check for new messages using the archive-aware comparison:
 
-## Error Handling - FAIL LOUDLY
+1. **Check if archive exists:** Use `read_file` tool on `context/archives/archive_metadata.json`
+   - If file exists, note the `oldest_active_timestamp` 
+   - If file doesn't exist, proceed with all messages
 
-If ANY MCP or command fails:
+2. **Read active processed messages:** Use `read_file` tool on `context/processed_messages.json`
+
+3. **Compare timestamps:** Look at MCP results from Step 1:
+   - For messages older than `oldest_active_timestamp`: assume already processed
+   - For newer messages: check if timestamp (`ts` field) is NOT in processed messages file
+   - Those are your new messages to present
+
+4. **Auto-archive if needed:** If processed_messages.json has >100 entries, follow the archival process in `commands/archive-messages.md`
+
+### Step 3: Present Results (Conversational)
+Present findings naturally like a Slack buddy:
+
+"I checked your inbox and found [X] new things since we last talked:
+
+• [Message preview with key context]
+• [Another message with why it might matter]
+• [Third message with potential connection to existing projects]
+
+How do you want me to incorporate these into your project files? Anything look like it should update your shipping reconciliation work, or maybe create a new task?"
+
+---
+
+## sync -slack (All Channels)
+
+### Step 1: Fetch All Channels
+Use `mcp_callm-for-slack_evaluate_repl_function` with this exact code:
+
+```javascript
+async function(slack) {
+  // Get channels from user-context.md core work channels
+  const channels = [
+    '{USER_INBOX_CHANNEL_ID}', // {user-inbox}
+    // Add other channel IDs from user-context.md
+  ];
+  
+  const fourDaysAgo = new Date(Date.now() - (4 * 24 * 60 * 60 * 1000));
+  const oldestTimestamp = (fourDaysAgo.getTime() / 1000).toString();
+  
+  const results = [];
+  for (const channelId of channels) {
+    const response = await slack.api.conversations.history({
+      channel: channelId,
+      oldest: oldestTimestamp,
+      limit: 20
+    });
+    
+    if (response.ok && response.messages) {
+      results.push({
+        channelId,
+        messages: response.messages
+      });
+    }
+  }
+  
+  return { success: true, channels: results };
+}
 ```
-🚨 **Sync Failed**
-The [Slack/Calendar/GitHub/etc] sync failed with error: [error message]
 
-We should debug this before proceeding. The sync needs all data sources to work properly.
+### Step 2: Filter and Present
+Same filtering process as inbox, then present channel-by-channel results.
 
-Would you like me to:
-A) Try the sync again
-B) Help debug the failing MCP
-C) Skip this sync for now
+---
+
+## sync -calendar (Calendar Only)
+
+### Step 1: Fetch Calendar Events
+Use `mcp_gworkspace-mcp_calendar_events`:
+```
+calendar_events(
+  time_min="today", 
+  time_max="next week", 
+  max_results=20,
+  include_attendees=true
+)
 ```
 
-**DO NOT** proceed with partial sync data.
+### Step 2: Present Results (Conversational)
+Present findings naturally:
 
-## Success Message
-**For full sync:**
-```
-✅ **Full Sync Complete**
-- Slack: [X] new messages filtered (excluded [Y] already processed)
-- Calendar: [X] upcoming events found
-- Email: [X] unread messages  
-- GitHub: [X] notifications, [Y] open issues/PRs
-- Drive: [X] files modified today
-- Found [X] items needing your input (see below)
-- Last synced: [timestamp]
-```
+"I looked at your calendar for the next week - here's what's coming up:
 
-**For targeted sync:**
-```
-✅ **Slack Sync Complete** (or Calendar/GitHub/etc)
-- [X] new messages filtered (excluded [Y] already processed)
-- Found [X] items needing your input (see below)
-- Last synced: [timestamp]
-```
+• **Tomorrow 2pm**: Shipping team sync with Jasmin and Vincent - looks like this might need some reconciliation prep?
+• **Friday 10am**: 1:1 with Vincent - good timing to discuss your project progress
+• **Next Tuesday**: All-hands meeting
 
-## Files to Update
-🚨 **ONLY after explicit user confirmation:**
-- Update projects.md with new context
-- Add new tasks to tasks.md  
-- Create new projects or reading list items
-- Update any project status or action items
+Which of these do you want to prep for? Should I check if any connect to your current projects?"
 
-✅ **Always allowed:**
-- Update sync timestamps
-- Mark messages as processed in sync_helper
+---
+
+## sync (Full Sync)
+
+Execute all individual sync commands in sequence:
+1. sync -slack
+2. sync -calendar  
+3. sync -github (using `gh` commands)
+4. sync -email (using `mcp_gworkspace-mcp_read_mail`)
+
+Present combined results and ask what to update.
+
+---
+
+## Error Handling
+
+If any MCP call fails, be conversational:
+
+"Hey, I ran into an issue trying to fetch your [Slack/calendar/etc] data - looks like [brief explanation of error]. 
+
+Want me to try that again, or should we skip it for now and work with what we have?"
+
+**Never proceed with partial data.**
