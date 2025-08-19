@@ -105,11 +105,11 @@ Execute the slack sync logic from sync.md to get recent messages.
 ### Step 2: Present Conversationally
 "I scanned your key Slack channels from the last day - here's what caught my attention:
 
-**#shipping-invoice-reconciliation**: Jasmin posted about the Purolator dispute numbers - looks like the $400k gap is confirmed. Might be worth updating your project context with this.
+**#project-channel**: Team posted about important project updates - looks like key milestones are confirmed. Might be worth updating your project context with this.
 
-**#team-data-channel**: Vincent shared some new BigQuery patterns that could help with your reconciliation work.
+**#team-data-channel**: Manager shared some new patterns that could help with your current work.
 
-**#user-inbox**: You left yourself a note about following up with Gajanan on the finance table access.
+**#user-inbox**: You left yourself a note about following up on important tasks.
 
 Anything here you want me to help you act on or add to your project files?"
 

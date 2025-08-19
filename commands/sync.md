@@ -23,7 +23,7 @@
 
 ```javascript
 async function(slack) {
-  const channelId = '{USER_INBOX_CHANNEL_ID}'; // Wilson's inbox from user-context.md
+  const channelId = '{USER_INBOX_CHANNEL_ID}'; // User's inbox from user-context.md
   
   // Get last 4 days of messages
   const fourDaysAgo = new Date(Date.now() - (4 * 24 * 60 * 60 * 1000));
@@ -47,11 +47,11 @@ async function(slack) {
 ### Step 2: Find New Messages
 **MANDATORY:** Check for new messages using the archive-aware comparison:
 
-1. **Check if archive exists:** Use `read_file` tool on `context/archives/archive_metadata.json`
+1. **Check if archive exists:** Use `read_file` tool on `message-archive/archives/archive_metadata.json`
    - If file exists, note the `oldest_active_timestamp` 
    - If file doesn't exist, proceed with all messages
 
-2. **Read active processed messages:** Use `read_file` tool on `context/processed_messages.json`
+2. **Read active processed messages:** Use `read_file` tool on `message-archive/processed_messages.json`
 
 3. **Compare timestamps:** Look at MCP results from Step 1:
    - For messages older than `oldest_active_timestamp`: assume already processed

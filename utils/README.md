@@ -63,7 +63,7 @@ helper.mark_messages_processed(new_messages, "integrated into projects")
 
 ## Storage
 
-- **Processed messages:** `context/processed_messages.json`
+- **Processed messages:** `message-archive/processed_messages.json`
 - **Format:** JSON with timestamp keys and message metadata
 - **Automatic cleanup:** Messages older than 30 days are removed
 - **Backup:** JSON format makes it easy to backup/restore message history

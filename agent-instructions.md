@@ -21,12 +21,13 @@
 ## File Structure
 ```
 chief-of-stuff-{username}/
-  user-context.md        # Wilson's role, team, preferences
+  user-context.md        # User's role, team, preferences
   projects.md            # Complex initiatives with stakeholders
   tasks.md              # Standalone action items by priority
   reading-list.md       # Learning materials by urgency
   commands/             # Command execution instructions
-  context/              # Extended technical context (when needed)
+  projects/             # Individual project workspaces with extended context
+  message-archive/      # Message archiving system files
   brag-docs/            # Weekly accomplishment tracking
 ```
 
@@ -45,11 +46,23 @@ chief-of-stuff-{username}/
 - **Update timestamps** when making changes
 - **Maintain clean formatting** and consistent structure
 
-### Context Files
-- Create context files when projects have >10 recent context entries
-- **High-level info** goes in `projects.md`: status, stakeholders, recent context
-- **Technical details** go in context files: analysis, decisions, implementation
-- **Never duplicate** information between files
+### Project Workspaces vs Project Registry
+
+**CRITICAL DISTINCTION:**
+
+**`projects.md` = Project Registry (High-Level)**
+- **Purpose:** Single source of truth for user's project portfolio
+- **Content:** Status, priority, timeline, stakeholders, recent updates, next actions
+- **Audience:** Anyone who needs to understand user's current work
+- **Keep Updated:** Always reflect current status and recent developments
+
+**`projects/[project-name]/` = Project Workspace (Detailed)**  
+- **Purpose:** Working directory for active project analysis and collaboration
+- **Content:** Technical analysis, SQL queries, meeting notes, working documents, extended context
+- **Audience:** User and collaborators working directly on the specific project
+- **Structure:** README.md + subdirectories (queries/, analysis/, docs/, meetings/)
+
+**Anti-Duplication Rule:** Never duplicate information between `projects.md` and project workspaces. High-level summary in registry, detailed work in workspace.
 
 ## Commands
 

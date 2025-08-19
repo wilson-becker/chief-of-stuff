@@ -18,7 +18,7 @@ from typing import Dict, List, Set, Optional
 class MessageTracker:
     """Manages processed message tracking with simplified structure"""
     
-    def __init__(self, storage_path: str = "context/processed_messages.json"):
+    def __init__(self, storage_path: str = "message-archive/processed_messages.json"):
         self.storage_path = storage_path
         self.messages: Dict[str, str] = {}  # timestamp -> action_taken
         self.load_messages()
