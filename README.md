@@ -13,41 +13,30 @@ This isn't automation - it's a conversational AI companion that learns how you t
 
 ## Getting Started
 
-1. **Clone this repo** and customize `user-context.md` with your info
-2. **Any new Cursor conversation** starts with the AI reading your context and being ready to help
+1. **Clone this repo** to your local machine
+2. **Run the setup command:** Type `setup` in your first conversation
 3. **Chat naturally** or use three core commands: `menu`, `sync`, `brag`
 4. **Watch your second brain evolve** as the AI learns your work patterns and priorities
 
 ## Your Second Brain Structure
 
 ```
-/chief/
-  README.md              # You are here
-  .cursorrules           # Core behavioral rules for any AI agent
-  agent-instructions.md  # Complete system overview for AI agents
+chief-of-stuff-{your-username}/
+  user-context.md        # Your role, team, preferences, Slack channels
+  projects.md            # Active projects with stakeholders and timelines
+  tasks.md              # Standalone action items by priority
+  reading-list.md       # Learning materials by urgency
   
-  # Templates (copy these to create your working files)
-  user-context.template.md    # Your role, goals, team, preferences
-  project.template.md         # Template for complex initiatives
-  task.template.md           # Template for standalone action items
-  reading-list.template.md   # Template for learning materials
-  brag-doc.template.md       # Template for weekly accomplishments
-  
-  # Your working files (created from templates)
-  user-context.md        # Your customized context
-  projects.md            # Your active projects
-  tasks.md              # Your current tasks
-  reading-list.md       # Your learning materials
-  
-  commands/             # Detailed instructions for menu, sync, brag
-  context/              # Extended context when projects get complex
+  commands/             # Command execution instructions
+  projects/             # Individual project workspaces with extended context
+  message-archive/      # Message archiving system files
   brag-docs/            # Weekly accomplishment tracking
 ```
 
 ## Three Commands, Infinite Possibilities
 
 - **`menu`** → Clean 7-option dashboard of your work
-- **`sync`** → Pull fresh context from Slack, Calendar, GitHub, Google Workspace  
+- **`sync`** → Pull fresh context from Slack, Calendar, GitHub, Google Workspace, Vault  
 - **`brag`** → Guided interview to create promotion-ready accomplishment docs
 
 *Each command has detailed instructions in `/commands/` - the AI reads these automatically.*
@@ -56,7 +45,7 @@ This isn't automation - it's a conversational AI companion that learns how you t
 
 This system **assumes it doesn't understand** and **constantly asks for clarification**:
 
-- *"This looks related to your shipping project, but I'm not sure - is that right?"*
+- *"This looks related to your current project, but I'm not sure - is that right?"*
 - *"Help me understand how this fits with your current priorities"*  
 - *"Let me update your project context based on what you just told me"*
 
@@ -74,22 +63,20 @@ Any AI agent jumping into a new conversation follows this path:
 
 **Result:** Zero onboarding time, maximum context awareness, consistent helpful behavior.
 
-## For New Users
+## Setup Process
 
-This is a **template repository**. To make it yours:
+This is a **template repository**. The first time you use it:
 
-1. **Fork/clone** this repo
-2. **Create your working files** from templates:
-   ```bash
-   cp user-context.template.md user-context.md
-   cp projects.template.md projects.md  
-   cp tasks.template.md tasks.md
-   cp reading-list.template.md reading-list.md
-   ```
-3. **Customize** `user-context.md` with your role, team, goals, and Slack channels
-4. **Install required MCPs** for Slack, Google Workspace, GitHub integration
-5. **Start chatting** - the AI will help you populate your projects and tasks
-6. **Use `sync`** regularly to keep your second brain current with real-world changes
+1. **Clone this repo** to your local machine
+2. **Start a Cursor conversation** and type `setup`
+3. **Follow the guided setup** - it will:
+   - Test your MCP connections (Slack, Google, etc.)
+   - Import your profile from Vault
+   - Create your personalized working files
+   - Remove template files and customize everything for you
+   - Set up your personal Slack inbox channel
+
+The setup process transforms this template into your personalized productivity system.
 
 ## Philosophy
 
