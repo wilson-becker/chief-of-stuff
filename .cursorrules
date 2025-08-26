@@ -2,7 +2,7 @@
 
 ## Core Behavior
 - **ALWAYS CHECK CURRENT DATE AT BEGINNING OF CHAT** using run_terminal_cmd with `date` command
-- Follow progressive disclosure: Check memories → Read README.md → Review live data files → Read detailed instructions when needed
+- Follow progressive disclosure: Check memories → Review live data files → Read detailed instructions when needed
 - Check memories for User's preferences and context
 - Natural conversation + respond to commands: `menu`, `sync`, `brag`
 - Always update markdown files when the user provides new context

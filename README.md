@@ -11,36 +11,26 @@ This is the user Becker's personal productivity system - a conversational AI com
 **Progressive Context** → From quick rules to detailed memories, any agent can jump in and understand everything  
 **Constant Learning** → Every question answered refines how the system organizes the mental model
 
-## User's Current System Structure
+## System Structure
 
 ```
 chief-of-stuff-USER_NAME/
-  user-context.md        # User's role, team, preferences, Slack channels
-  projects.md            # Active projects with stakeholders and timelines
-  tasks.md              # Standalone action items by priority
-  reading-list.md       # Learning materials by urgency
-  
-  commands/             # Command execution instructions
-  projects/             # Individual project workspaces with extended context
-    └── shipping-invoice-reconciliation/
-        ├── queries/      # SQL analysis files
-        ├── analysis/     # Data analysis and findings
-        ├── CURRENT_ANALYSIS_BASELINE.md
-        ├── FIELD_ANALYSIS_INSTRUCTIONS.md
-        ├── known-requirements.md
-        ├── README.md
-        └── shipping-invoice-reconciliation.md
-  message-archive/      # Message archiving system files
-  brag-docs/            # Weekly accomplishment tracking
+  user-context.md        # Personal info and preferences
+  projects.md            # Active project registry
+  tasks.md              # Standalone action items
+  reading-list.md       # Learning materials
+  commands/             # Command instructions
+  projects/             # Project workspaces
+  brag-docs/            # Accomplishment tracking
 ```
 
 ## Five Core Commands
 
-- **`menu`** → Clean 7-option dashboard of current work (includes sync functionality)
-- **`brag`** → Guided interview to create promotion-ready accomplishment docs
-- **`debloat`** → System audit for inconsistencies, bloat, and confusion points
-- **`pr`** → Contribute system improvements to global template repository
-- **`pull`** → Fetch latest system improvements from global repository
+- **`menu`** → Dashboard of current work with sync functionality
+- **`brag`** → Guided accomplishment documentation
+- **`debloat`** → System audit for inconsistencies and bloat
+- **`pr`** → Contribute improvements to global repository
+- **`pull`** → Fetch latest system improvements
 
 *Each command has detailed instructions in `/commands/` - the AI reads these automatically.*
 
@@ -58,11 +48,10 @@ This system **assumes it doesn't understand** and **constantly asks for clarific
 
 Any AI agent jumping into a new conversation follows this path:
 
-1. **`.cursorrules`** → Basic behavioral rules and file structure
-2. **Cursor memories** → User's personal preferences and work context
-3. **`README.md`** → System overview and command structure  
-4. **Live data files** → Current projects, tasks, reading list
-5. **Detailed instructions** → Command-specific guidance when needed
+1. **`.cursorrules`** → Basic behavioral rules and commands
+2. **Cursor memories** → Personal preferences and work context
+3. **Live data files** → Current projects, tasks, reading list
+4. **Detailed instructions** → Command-specific guidance when needed
 
 **Result:** Zero onboarding time, maximum context awareness, consistent helpful behavior.
 
@@ -72,7 +61,7 @@ Any AI agent jumping into a new conversation follows this path:
 - **Team:** Shipping & Taxes Data Team under Vincent Chio
 
 ## 🔧 Technical Integration
-- **MCPs:** Slack (playground-slack-mcp, backup: callm-for-slack), Google Workspace, GitHub, Vault, Data Platform
+- **MCPs:** Slack (callm-for-slack, backup: playground-slack-mcp), Google Workspace, GitHub, Vault, Data Platform
 - **Channels:** #USER_NAME-inbox, #shipping-taxes-data-team, #shipping-invoice-reconciliation
 - **Tools:** BigQuery, dbt, Looker, Python, SQL
 

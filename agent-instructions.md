@@ -21,12 +21,18 @@
 ## File Structure
 ```
 chief-of-stuff-USER_NAME/
-  user-context.md        # User's role, team, preferences
-  projects.md            # Complex initiatives with stakeholders
+  user-context.md        # User's role, team, preferences, Slack channels
+  projects.md            # Complex initiatives with stakeholders and timelines
   tasks.md              # Standalone action items by priority
   reading-list.md       # Learning materials by urgency
+  
   commands/             # Command execution instructions
   projects/             # Individual project workspaces with extended context
+    └── [project-name]/
+        ├── extended-context.md    # All detailed project context
+        ├── requirements/          # Project requirements
+        ├── queries/              # SQL analysis files
+        └── analysis/             # Data analysis and findings
   message-archive/      # Message archiving system files
   brag-docs/            # Weekly accomplishment tracking
 ```
@@ -58,11 +64,13 @@ chief-of-stuff-USER_NAME/
 
 **`projects/[project-name]/` = Project Workspace (Detailed)**  
 - **Purpose:** Working directory for active project analysis and collaboration
-- **Content:** Technical analysis, SQL queries, meeting notes, working documents, extended context
+- **Content:** Technical analysis, requirements, working documents, extended context
 - **Audience:** the user and collaborators working directly on the specific project
-- **Structure:** README.md + subdirectories (queries/, analysis/, docs/, meetings/)
+- **Structure:** extended-context.md + subdirectories (requirements/, queries/, analysis/)
 
 **Anti-Duplication Rule:** Never duplicate information between `projects.md` and project workspaces. High-level summary in registry, detailed work in workspace.
+
+**Extended Context Protocol:** Each project workspace contains exactly one `extended-context.md` file for overflow content from `projects.md`. All technical details, stakeholder context, and historical information goes there.
 
 ## Commands
 
@@ -89,9 +97,7 @@ Chat about work, ask clarifying questions, update files based on responses.
 **CRITICAL:** Read `commands/pull.md` and execute the system update process exactly as specified.
 **FALLBACK:** If fetch operations fail, ask user to manually check global repo for updates.
 
-### `sync-global`
-**CRITICAL:** Read `SYNC_TO_GLOBAL.md` and execute the manual sync workflow exactly as specified.
-**FALLBACK:** If git operations fail, check repo status and authentication before retrying.
+
 
 ## Success Criteria
 - User's mental model is accurately reflected in the markdown files

@@ -38,11 +38,11 @@ Wait for user to choose 1-7.
 4. **IF ANY STEP FAILS** - STOP and report the error, do not continue
 
 ### Step 1: Sync Slack (All Channels)
-Use multiple `mcp_playground-slack-mcp_slack_search` calls for each channel in user-context.md "Core Work Channels (Most Important)" section: query="in:#channel-name after:YYYY-MM-DD", sort="desc", count=20 (where YYYY-MM-DD = current date minus 4 days, calculated using terminal command: `date -v-4d +%Y-%m-%d`)
+Use `mcp_callm-for-slack_evaluate_repl_function` for each channel in user-context.md "Core Work Channels (Most Important)" section with this exact code:
 
 **ERROR HANDLING:** If a channel ID is missing from user-context.md, skip that channel and note it in results. If user-context.md is missing, use only #wilson-inbox (C0994TKREDA).
 
-**BACKUP:** If playground-slack-mcp is down, use `mcp_callm-for-slack_evaluate_repl_function` with this exact code:
+**BACKUP:** If callm-for-slack is down, use `mcp_playground-slack-mcp_slack_search` calls: query="in:#channel-name after:YYYY-MM-DD", sort="desc", count=20 (where YYYY-MM-DD = current date minus 4 days, calculated using terminal command: `date -v-4d +%Y-%m-%d`)
 **Note:** callm-for-slack uses JavaScript functions while playground-slack-mcp uses direct parameters. Do not mix parameter formats.
 
 ```javascript
@@ -114,9 +114,9 @@ What would you like to dive into first?"
 ## menu sync -i (Inbox Only Sync)
 
 ### Step 1: Fetch Inbox Messages
-**MANDATORY:** Use `mcp_playground-slack-mcp_slack_search` with parameters: query="in:#wilson-inbox after:YYYY-MM-DD", sort="desc", count=50 (where YYYY-MM-DD = current date minus 4 days, calculated using terminal command: `date -v-4d +%Y-%m-%d`)
+**MANDATORY:** Use `mcp_callm-for-slack_evaluate_repl_function` tool with this EXACT code (do not modify):
 
-**BACKUP:** If playground-slack-mcp is down, use `mcp_callm-for-slack_evaluate_repl_function` tool with this EXACT code (do not modify):
+**BACKUP:** If callm-for-slack is down, use `mcp_playground-slack-mcp_slack_search` with parameters: query="in:#wilson-inbox after:YYYY-MM-DD", sort="desc", count=50 (where YYYY-MM-DD = current date minus 4 days, calculated using terminal command: `date -v-4d +%Y-%m-%d`)
 **Note:** callm-for-slack uses JavaScript functions while playground-slack-mcp uses direct parameters. Do not mix parameter formats.
 
 ```javascript
@@ -245,7 +245,7 @@ What feels most important to knock out first? Or is there something blocking you
 ## menu -slack (Slack Digest)
 
 ### Step 1: Run Slack Sync
-Execute the same slack sync logic as `menu sync -i` to get fresh messages.
+Execute the same slack sync logic as `menu sync -i` using callm-for-slack to get fresh messages.
 
 ### Step 2: Create Reader's Digest Summary
 Analyze the synced messages and present conversationally
